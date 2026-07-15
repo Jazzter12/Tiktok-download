@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Downloader Cuan</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; background: #f0f2f5; color: #333; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { margin-bottom: 20px; }
+        input { width: 90%; padding: 12px 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { padding: 12px 25px; background: #ff0050; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; width: 90%; transition: 0.3s; }
+        button:hover { background: #d40042; }
+        #result { margin-top: 25px; }
+        video { width: 100%; border-radius: 8px; margin-top: 15px; background: black; }
+        .btn-download { display: inline-block; padding: 10px 20px; background: #00f2fe; color: black; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>TikTok Downloader</h2>
+    <p>Unduh video tanpa watermark gratis!</p>
+    <input type="text" id="tiktokUrl" placeholder="Paste link TikTok di sini...">
+    <br>
+    <button id="downloadBtn" onclick="downloadVideo()">Cari Video</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    async function downloadVideo() {
+        const url = document.getElementById('tiktokUrl').value.trim();
+        const resDiv = document.getElementById('result');
+        const btn = document.getElementById('downloadBtn');
+
+        if (!url) {
+            alert('Harap masukkan link TikTok terlebih dahulu!');
+            return;
+        }
+
+        resDiv.innerHTML = "<em>Sedang memproses video, mohon tunggu sebentar...</em>";
+        btn.disabled = true;
+
+        try {
+            // Kita menggunakan mesin baru dari TikWM (gratis, tanpa API Key)
+            const apiUrl = 'https://www.tikwm.com/api/?url=' + encodeURIComponent(url);
+            
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.code === 0 && data.data) {
+                const videoUrl = data.data.play;
+                const title = data.data.title || "Video TikTok";
+
+                resDiv.innerHTML = `
+                    <p><strong>Berhasil ditemukan!</strong></p>
+                    <p style="font-size: 14px; color: gray;">${title}</p>
+                    <video src="${videoUrl}" controls playsinline></video>
+                    <br>
+                    <a href="${videoUrl}" target="_blank" class="btn-download">Unduh Video</a>
+                    <p style="font-size: 12px; margin-top:10px;">(Jika videonya berputar, klik titik 3 di pojok kanan bawah video lalu pilih Download)</p>
+                `;
+            } else {
+                resDiv.innerHTML = "<strong style='color:red;'>Gagal menemukan video.</strong><br>Pastikan link yang dimasukkan benar dan akun tidak di-private.";
+            }
+        } catch (err) {
+            resDiv.innerHTML = "<strong style='color:red;'>Terjadi kesalahan jaringan.</strong><br>Sistem keamanan browser mungkin memblokir proses. Coba lagi nanti.";
+        } finally {
+            btn.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
