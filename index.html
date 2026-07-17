@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Downloader Premium</title>
+    <style>
+        /* Harmoni Warna: Latar Hitam Elegan dengan Aksen Neon */
+        :root {
+            --bg-dark: #0f0f13;
+            --box-bg: #1a1a24;
+            --neon-cyan: #00f2fe;
+            --neon-pink: #fe0979;
+            --text-light: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: var(--bg-dark); 
+            /* Efek cahaya redup di pojok layar agar tidak terlalu gelap */
+            background-image: radial-gradient(circle at top left, rgba(254, 9, 121, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom right, rgba(0, 242, 254, 0.15), transparent 40%);
+            color: var(--text-light); 
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container { 
+            width: 100%;
+            max-width: 450px; 
+            background: var(--box-bg); 
+            padding: 30px 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 15px rgba(0, 242, 254, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Logo TikTok Buatan dengan Efek 3D */
+        .logo-container {
+            margin-bottom: 15px;
+        }
+        .tiktok-logo {
+            fill: #ffffff;
+            /* Membuat efek warna tumpuk khas TikTok */
+            filter: drop-shadow(3px 3px 0px var(--neon-pink)) drop-shadow(-3px -3px 0px var(--neon-cyan));
+            transition: transform 0.3s;
+        }
+        .tiktok-logo:hover {
+            transform: scale(1.1);
+        }
+
+        /* Judul Berwarna Gradient */
+        h2 { 
+            margin: 10px 0 5px 0; 
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        p { color: var(--text-dim); margin-bottom: 25px; font-size: 14px; }
+
+        input { 
+            width: 90%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            font-size: 15px; 
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus { 
+            border-color: var(--neon-cyan); 
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2); 
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button { 
+            padding: 14px 25px; 
+            background: linear-gradient(45deg, var(--neon-pink), #d40042); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            width: 90%; 
+            transition: 0.3s; 
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(254, 9, 121, 0.4);
+        }
+
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(254, 9, 121, 0.6);
+        }
+
+        button:disabled { background: #555; box-shadow: none; transform: none; cursor: not-allowed; }
+
+        #result { margin-top: 25px; }
+        video { width: 100%; border-radius: 12px; margin-top: 15px; border: 2px solid #333; }
+        
+        .btn-download { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            background: linear-gradient(45deg, var(--neon-cyan), #00b4d8); 
+            color: #000; 
+            text-decoration: none; 
+            border-radius: 12px; 
+            font-weight: 900; 
+            margin-top: 15px; 
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
+            transition: 0.3s;
+        }
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-container">
+        <!-- SVG Kode untuk Logo TikTok Resmi -->
+        <svg class="tiktok-logo" viewBox="0 0 448 512" width="60" height="60">
+            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+        </svg>
+    </div>
+    
+    <h2>TikTok Downloader</h2>
+    <p>Unduh video tanpa watermark kualitas HD</p>
+    
+    <input type="text" id="tiktokUrl" placeholder="Tempel link TikTok di sini...">
+    <br>
+    <button id="downloadBtn" onclick="downloadVideo()">Cari Video 🚀</button>
+    
+    <div id="result"></div>
+</div>
+
+<script>
+    async function downloadVideo() {
+        const url = document.getElementById('tiktokUrl').value.trim();
+        const resDiv = document.getElementById('result');
+        const btn = document.getElementById('downloadBtn');
+
+        if (!url) {
+            alert('Harap masukkan link TikTok terlebih dahulu!');
+            return;
+        }
+
+        resDiv.innerHTML = "<em style='color: var(--neon-cyan);'>⏳ Mengambil video dari server...</em>";
+        btn.disabled = true;
+
+        try {
+            const apiUrl = 'https://www.tikwm.com/api/?url=' + encodeURIComponent(url);
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.code === 0 && data.data) {
+                const videoUrl = data.data.play;
+                const title = data.data.title || "Video TikTok";
+
+                resDiv.innerHTML = `
+                    <p><strong style="color: var(--neon-pink);">✅ Berhasil ditemukan!</strong></p>
+                    <p style="font-size: 13px; color: var(--text-dim);">${title}</p>
+                    <video src="${videoUrl}" controls playsinline></video>
+                    <br>
+                    <a href="${videoUrl}" target="_blank" class="btn-download">⬇️ Unduh Video</a>
+                    <p style="font-size: 11px; margin-top:15px; color: #777;">(Jika video malah terputar, ketuk titik 3 di sudut video lalu pilih Download)</p>
+                `;
+            } else {
+                resDiv.innerHTML = "<strong style='color:#ff4757;'>❌ Gagal menemukan video.</strong><br>Pastikan link benar dan akun tidak digembok (private).";
+            }
+        } catch (err) {
+            resDiv.innerHTML = "<strong style='color:#ff4757;'>⚠️ Terjadi kesalahan jaringan.</strong><br>Sistem sibuk, silakan coba beberapa saat lagi.";
+        } finally {
+            btn.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>
